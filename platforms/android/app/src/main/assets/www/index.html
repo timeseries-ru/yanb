@@ -23,15 +23,46 @@
             .inputs-hidden {
                 display: none !important;
             }
+            .absolute-hidden {
+                position: absolute;
+                top: 0; left: 0;
+                right: 0; bottom: 0;
+                z-index: 10002;
+                opacity: 0;
+            }
+            .button {
+                z-index: 10001;
+                position: absolute;
+                top: 0; left: 0;
+                right: 0; bottom: 0;
+                background: #EAEAEA;
+                color: #373737;
+                border-radius: 2px;
+            }
+            .container {
+                padding: 0 4px;
+                position: relative;
+                float: right;
+                width: 60px;
+                height: 16px;
+                margin: 0 5px;
+                text-align: center;
+            }
         </style>
     </head>
     <body>
         <div id="app">
             <div class="bar">
-                <input id="FileEntry" type="file">
-                <input type="checkbox" id="ShowInputs" checked="checked">Show Code Cells
+                <div class="container">
+                    <input type="file" class="absolute-hidden" id="FileInput">
+                    <div class="button" id="FileEntry">File</div>
+                </div>
+                <div class="container">
+                    <div class="button" id="ShowInputs" style="opacity: 0;">Hide Code</div>
+                </div>
+                <div style="float: none; clear: both;"></div>
             </div>
-            <div id="content"></div>
+            <div id="content" style="margin-top: 26px;"></div>
         </div>
         <script type="text/javascript" src="js/marked.min.js"></script>
         <script type="text/javascript" src="js/ansi_up.js"></script>

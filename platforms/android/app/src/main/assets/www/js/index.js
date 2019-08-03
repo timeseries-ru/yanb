@@ -23,6 +23,7 @@ var app = {
         reader.onloadend = function (event_target) {
             app.content = JSON.parse(event_target.target.result);
             app.receivedEvent(null);
+            document.getElementById("ShowInputs").style = "";
         };
         reader.readAsText(file);
     },
@@ -58,16 +59,21 @@ var app = {
             var notebook = nb.parse(this.content);
             parentElement.innerHTML = notebook.render().outerHTML;
         } else {
-            document.getElementById("FileEntry").addEventListener('change', this.getFile, false);
+            this.inputs_visible = true;
+            document.getElementById("FileInput").addEventListener('change', this.getFile, false);
             document.getElementById("ShowInputs").addEventListener('click', this.inputs, false);
         }
     },
 
     inputs: function(event) {
+        this.inputs_visible = !this.inputs_visible;
+        document.getElementById("ShowInputs").innerText = (
+            this.inputs_visible ? "Hide Code" : "Show Code"
+        );
         var elements = document.getElementsByClassName("nb-input");
         for (var index in elements) {
             if (!elements[index].classList) continue;
-            if (event.target.checked) {
+            if (this.inputs_visible) {
                 elements[index].classList.remove('inputs-hidden');
             } else {
                 elements[index].classList.add('inputs-hidden');
